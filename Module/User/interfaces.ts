@@ -1,5 +1,5 @@
 
-interface User{
+export interface User{
     id:string,
     fullName:string,
     email:number,
@@ -7,4 +7,3 @@ interface User{
     profile:string
 }
 
-export type {User};
