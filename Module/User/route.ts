@@ -8,13 +8,12 @@ const route = Router();
 // router.use(verifyToken)
 
 // leer los usuarios
-console.log("entro aca Router");
 
 route.get("/",  userController.getUsers);
 //route.get("/", verifyToken, userController.getUsers);
 
 // leer un único usuario por id
-//route.get("/:id", userController.getUser);
+route.get("/:id", userController.getUser);
 
 // crear un usuario
 //route.post("/", userController.createUser);

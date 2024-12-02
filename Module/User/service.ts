@@ -39,8 +39,6 @@ const getUseById = async (id: string) => {
 
 
 const getUsers = async () => {
-  console.log("entro aca service");
-
     const users = await UserModel.readUsers();
     return users;    
 };
