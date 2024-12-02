@@ -18,9 +18,6 @@ const createUser = async (
   
     const salt = await bcrypt.genSalt(10);
     const passwordHashed = await bcrypt.hash(password, salt);  
-
-    console.log(email, password,  fullName, profile)
-
     const newUser: User = {
       id: nanoid(),
       email: email,
@@ -46,12 +43,37 @@ const getUsers = async () => {
     return users;    
 };
 
-const updateUser = async () => {
+const updateUser = async (
+  id:string,
+  email: string,
+  password: string,
+  fullName: string,
+  profile: string
+) => { 
+  const users = await getUsers();
+  const user = users.find((item) => item.id === id);
+  if (!user) {
+    throw new Error("Email does not exists");
+  } 
 
-    const users = await UserModel.readUsers();
-    return users;
-    
+  const salt = await bcrypt.genSalt(10);
+  const passwordHashed = await bcrypt.hash(password, salt);  
+
+
+  const newUser: User = {
+    id: id,
+    email: email,
+    password: passwordHashed,
+    fullName: fullName,
+    profile: profile,
+  };
+
+  const newUsers = users.filter(user => user.id !== id);
+  newUsers.push(newUser);
+  await UserModel.writeUsers(newUsers);
+  return newUser; 
 };
+    
 
 const deleteUser = async (id: string) => {
     const users = await UserModel.readUsers();    
@@ -73,5 +95,3 @@ export const userService = {
     updateUser,
     deleteUser
 }
-
-  
