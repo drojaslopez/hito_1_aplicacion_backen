@@ -25,8 +25,17 @@
     "password": "$2a$10$CavZ1ji3JcsdKug3AX3f5.eSYql5jlsjl32zTdii1XLrqoKhLPN3e"
   },
   {
-    "id": "sJ95oiRbFJrAoDDW1qZgg",
-    "email": "test6@domain.com",
-    "password": "$2a$10$jIpAjMGwLeWEo/qrmhshlO/y7ojkFopsnBFTakIK5NZQHddM9u3ym"
+    "id": "c2gQ3cLQFrEug-ABMjTH_",
+    "email": "",
+    "password": "$2a$10$KjlYd39S4TpslEvmf0I2ZOHi5dgKHy.xFvEjbxEjvgjcV11nqTqgK",
+    "fullName": "",
+    "profile": ""
+  },
+  {
+    "id": "Uap-KzL_NbCi0mihp-8qF",
+    "email": "daniel.rojas@drl.cl",
+    "password": "$2a$10$1FAo0e6S3A3Jar2/l4/M1uGXwyrUhHqOCSooudjKjcE.0lAqcDCcu",
+    "fullName": "Daniel Rojas",
+    "profile": "Administrator"
   }
 ]

@@ -6,8 +6,10 @@ import { User } from "./interfaces";
 
 const createUser = async (
     email: string,
-    password: string
-  ) => {/* 
+    password: string,
+    fullName: string,
+    profile: string
+  ) => { 
     const users = await getUsers();
     const user = users.find((item) => item.email === email);
     if (user) {
@@ -15,19 +17,21 @@ const createUser = async (
     }
   
     const salt = await bcrypt.genSalt(10);
-    const passwordHashed = await bcrypt.hash(password, salt);
-  
+    const passwordHashed = await bcrypt.hash(password, salt);  
+
+    console.log(email, password,  fullName, profile)
+
     const newUser: User = {
       id: nanoid(),
-      email,
+      email: email,
       password: passwordHashed,
-      fullName: "",
-      profile: "",
+      fullName: fullName,
+      profile: profile,
     };
   
     users.push(newUser);
     await UserModel.writeUsers(users);
-    return newUser; */
+    return newUser; 
   };
 
 
@@ -36,7 +40,6 @@ const getUseById = async (id: string) => {
     const user = users.find((user) => user.id === id);
     return user;
 };
-
 
 const getUsers = async () => {
     const users = await UserModel.readUsers();
@@ -50,14 +53,17 @@ const updateUser = async () => {
     
 };
 
-const deleteUser = async () => {
-
-    const users = await UserModel.readUsers();
-    return users;
+const deleteUser = async (id: string) => {
+    const users = await UserModel.readUsers();    
+    const user = users.find((user) => user.id === id);
+    if (!user) {
+      throw new Error("user does not exist");
+    }    
+    const newUsers = users.filter(user => user.id !== id);
+    await UserModel.writeUsers(newUsers);
+    return user;
     
 };
-
-
 
 
 export const userService = { 
