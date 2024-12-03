@@ -1,7 +1,6 @@
 
 import{Router} from "express";
 import { userController } from "../user/controller";
-import { verifyToken } from "../../middleware/jwt";
 
 const route = Router();
 
@@ -12,7 +11,7 @@ const route = Router();
 route.get("/", userController.getUsers);
 
 // leer un único usuario por id
-route.get("/:id",verifyToken, userController.getUser);
+route.get("/:id", userController.getUser);
 
 // crear un usuario
 route.post("/", userController.createUser);

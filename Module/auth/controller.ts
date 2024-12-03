@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import { authService } from "./service";
-//import { userService } from "../services/user.service";
+import { userService } from "../user/service";
 
 const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-
     const token = await authService.loginWithEmailAndPassword(email, password);
-
     res.json({ token });
   } catch (error) {
     console.log(error);
@@ -19,10 +17,12 @@ const login = async (req: Request, res: Response) => {
 
 const register = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
-    const newUser = await userService.createUserWithEmailAndPassword(
+    const { email, password, fullname, profile } = req.body;
+    const newUser = await userService.createUser(
       email,
-      password
+      password,
+      fullname,
+      profile
     );
     res.json({ newUser });
   } catch (error) {
@@ -32,8 +32,24 @@ const register = async (req: Request, res: Response) => {
     } else res.status(500).json({ error: "Error de servidor" });
   }
 };
+ 
+const validateToken = async (req: Request, res: Response) => {
+  try {
+    const users = await userService.getUsers();
+    if (!users) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      res.json(users);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 
 export const authController = {
   login,
   register,
+  validateToken
 };
